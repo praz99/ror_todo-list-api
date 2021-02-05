@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe "Todos API", type: :request do
+RSpec.describe 'Todos API', type: :request do
   # initialice test data
   let!(:todos) { create_list(:todo, 10) }
   let(:todo_id) { todos.first.id }
 
   # Test suite for GET /todos
   describe 'GET /todos' do
-    # make HTTP get request before each 
-    before { get '/todos '}
+    # make HTTP get request before each
+    before { get '/todos' }
 
     it 'returns todos' do
       # Note `json` is a custom helper to parse JSON responses
@@ -28,16 +28,16 @@ RSpec.describe "Todos API", type: :request do
     context 'when the record exists' do
       it 'returns the todo' do
         expect(json).not_to be_empty
-        expect(json['id'].to eq(todo_id))
+        expect(json['id']).to eq(todo_id)
       end
 
-      it 'returns sataus code 200' do
+      it 'returns status code 200' do
         expect(response).to have_http_status(200)
       end
     end
 
     context 'when the record does not exist' do
-      let(:todo_it) { 100 }
+      let(:todo_id) { 100 }
 
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
@@ -52,7 +52,7 @@ RSpec.describe "Todos API", type: :request do
   # Test suite for POST /todos
   describe 'POST /todos' do
     # valid payload
-    let(:valid_attributes) { { title: 'Learn Elm', created_by: '1'} }
+    let(:valid_attributes) { { title: 'Learn Elm', created_by: '1' } }
 
     context 'when the request is valid' do
       before { post '/todos', params: valid_attributes }
