@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
 
   # GET /todos/:todo_id/items
   def index
-    json_response(@todos.items)
+    json_response(@todo.items)
   end
 
   # GET /todos/:todo_id/items/:id
@@ -30,6 +30,7 @@ class ItemsController < ApplicationController
   end
 
   private
+
   def item_params
     params.permit(:name, :done)
   end

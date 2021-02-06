@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Items API", type: :request do
+  # Initialize the test data
   let!(:todo) { create(:todo) }
   let!(:items) { create_list(:item, 20, todo_id: todo.id) }
   let(:todo_id) { todo.id }
@@ -10,9 +11,9 @@ RSpec.describe "Items API", type: :request do
   describe 'GET /todos/:todo_id/items' do
     before { get "/todos/#{todo_id}/items" }
 
-    context 'when todo exitst' do
+    context 'when todo exists' do
       it 'returns status code 200' do
-        expects(response).to have_http_status(200)
+        expect(response).to have_http_status(200)
       end
 
       it 'returns all todo items' do
@@ -55,7 +56,7 @@ RSpec.describe "Items API", type: :request do
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Could't find Item/)
+        expect(response.body).to match(/Couldn't find Item/)
       end
     end
   end
