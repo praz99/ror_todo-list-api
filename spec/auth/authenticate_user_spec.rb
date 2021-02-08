@@ -1,4 +1,4 @@
-require 'rails-helper'
+require 'rails_helper'
 
 RSpec.describe AuthenticateUser do
   # create test user
@@ -14,8 +14,10 @@ RSpec.describe AuthenticateUser do
   describe '#call' do
     # return token when valid request
     context 'when valid credentials' do
-      token = valid_auth_obj.call
-      expect(token).not_to be_nil
+      it 'returns an auth token' do
+        token = valid_auth_obj.call
+        expect(token).not_to be_nil
+      end
     end
   
 
