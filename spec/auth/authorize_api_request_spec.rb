@@ -28,14 +28,14 @@ RSpec.describe AuthorizeApiRequest do
     context 'when invalid request' do
       context 'when missing token' do
         it 'raises a MissingToken error' do
-          expect { invalid_request_object.call }.to raise_error(ExceptionHandler::MissingToken, 'Missing token')
+          expect { invalid_request_obj.call }.to raise_error(ExceptionHandler::MissingToken, 'Missing token')
         end
       end
 
       context 'when invalid token' do
         subject(:invalid_request_obj) do
           # custom helper method `token_generator`
-          described_class.new('Authorixation' => token_generato(5))
+          described_class.new('Authorization' => token_generator(5))
         end
 
         it 'raises an InvalidToken error' do
@@ -49,13 +49,13 @@ RSpec.describe AuthorizeApiRequest do
 
         it 'raises ExceptionHandler::ExpiredSignature error' do
           expect { request_obj.call }.to raise_error(
-            ExpectionHandler::InvalidToken, /Signature has expired/
+            ExceptionHandler::InvalidToken, /Signature has expired/
           )
         end
       end
 
       context 'fake token' do
-        let(:header) { { 'Authoization' => 'foobar' } }
+        let(:header) { { 'Authorization' => 'foobar' } }
         subject(:invalid_request_obj) { described_class.new(header) }
 
         it 'handles JWT::DecodeError' do
